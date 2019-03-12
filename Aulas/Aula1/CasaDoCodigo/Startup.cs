@@ -32,7 +32,7 @@ namespace CasaDoCodigo
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -52,6 +52,12 @@ namespace CasaDoCodigo
                     name: "default",
                     template: "{controller=Pedido}/{action=Carrossel}/{id?}");
             });
+
+            //Mais utilizado para aplicações pequenas de teste por utilizar a classe de mapeamento
+            //serviceProvider.GetService<ApplicationContext>().Database.EnsureCreated();
+
+            //Mais indicado, faz a mesma coisa porém utilizando as migrações.
+            serviceProvider.GetService<ApplicationContext>().Database.Migrate();
         }
     }
 }
