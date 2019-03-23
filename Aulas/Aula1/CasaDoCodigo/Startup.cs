@@ -63,7 +63,7 @@ namespace CasaDoCodigo
             //serviceProvider.GetService<ApplicationContext>().Database.EnsureCreated();
 
             //Mais indicado, faz a mesma coisa porém utilizando as migrações.
-            serviceProvider.GetService<IDataService>().InicializaDB();
+            //serviceProvider.GetService<IDataService>().InicializaDB();
 
         }
     }
