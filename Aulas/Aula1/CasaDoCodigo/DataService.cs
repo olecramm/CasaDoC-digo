@@ -14,7 +14,7 @@ namespace CasaDoCodigo
             private readonly ApplicationContext contexto;
             private readonly IProdutoRepository produtoRepository;
 
-            public DataService(ApplicationContext contexto, 
+            public DataService(ApplicationContext contexto,
                 IProdutoRepository produtoRepository)
             {
                 this.contexto = contexto;
@@ -23,10 +23,11 @@ namespace CasaDoCodigo
 
             public void InicializaDB()
             {
-                contexto.Database.EnsureCreated();
-
-                List<Livro> livros = GetLivros();
-                produtoRepository.SaveProdutos(livros);
+                if (contexto.Database.EnsureCreated() == true)
+                {
+                    List<Livro> livros = GetLivros();
+                    produtoRepository.SaveProdutos(livros);
+                }
             }
 
             private static List<Livro> GetLivros()
