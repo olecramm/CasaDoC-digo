@@ -44,14 +44,24 @@ namespace CasaDoCodigo.Controllers
         }
 
         public IActionResult Cadastro()
-        {            
-            return View();
-        }
-
-        public IActionResult Resumo()
         {
-            Pedido pedido = pedidoRepository.GetPedido();
-            return View(pedido);
+            var pedido = pedidoRepository.GetPedido();
+
+            if (pedido == null)
+            {
+                return RedirectToAction("Carrossel");
+            }
+            return View(pedido.Cadastro);
+        }
+        [HttpPost]
+        public IActionResult Resumo(Cadastro cadastro)
+        {
+            if (ModelState.IsValid)
+            {
+                Pedido pedido = pedidoRepository.UpdateCadastro(cadastro);
+                return View(pedido);
+            }
+            return RedirectToAction("Cadastro");
         }
 
         [HttpPost]
